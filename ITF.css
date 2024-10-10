@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+}
+
+body {
+    text-align: center;
+}
+
+nav {
+    background-color: burlywood;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: auto auto;
+    text-align: left;
+}
+
+nav ul {
+    text-align: right;
+}
+
+nav li {
+    margin-left: 16px;
+    display: inline;
+}
+
+div {
+    margin: 16px;
+}
