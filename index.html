@@ -1,39 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="ITF.css" />
+    <title>ITF-JavaScript</title>
 </head>
+
 <body>
-    <nav>
-        <h1>$$$ Robux $$$</h1>
-        <ul>
-            <li>
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Youtube</a>
-            </li>
-            <li>
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Facebook</a>
-            </li>
-            <li>
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Instagram</a>
-            </li>
-        </ul>
-    </nav>
-    <div>
-        <img src="https://editmeisshop.com/images/home-menu/S18Z2FDBXU0OZ31X2E71_robux1.jpg" width="50%" heigt="50%" />
+    <div class="profile">
+        <h1 class="userName" id="userName">Pongphon Bureerak</h1>
+        <div id="img-pic" class="profileIMG"
+            style="position: relative; background-size: cover;background-position: center; height:250px; width:250px; border-radius: 100%; background-image: url(https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg)">
+            <div class="point"
+                style="height: 16px; width: 16px; background-color: green; border-radius: 100%; bottom: 60px; position: absolute; right: 60px;">
+            </div>
+        </div>
     </div>
-    <p> รับเติมโรบัซ </p>
-    <button>
-        <a href="https://static.wikia.nocookie.net/8147b90e-19dd-44e2-94f9-5446300db3b0/scale-to-width/755">Click it !!!</a>
-    </button>
-    <div>เว็บปลอดภัยหายห่วง</div>
-    <div>
-        <a href="https://i.pinimg.com/originals/89/5c/e7/895ce751ba0379700381d17a67086931.gif"> Get Free</a>
-    </div>
-    <footer>
-        <p> Eazy money</p>
-    </footer>
+
+    <label for="user">Set Username</label>
+    <input type="text" placeholder="Enter Username" name="user" id="enterName">
+    <button type="submit" onclick="setUser()">SET</button>
+
+    <label for="img">Set Image</label>
+    <input type="text" placeholder="Enter URLS" name="img" id="url">
+    <button type="submit" onclick="setImg()">SET</button>
+
+    <form action="" onsubmit="handlesub(event)">
+        <input type="text" placeholder="name" id="myname">
+        <input type="text" placeholder="Tel" id="mytel">
+        <input type="submit">
+    </form>
+
+    <table>
+        <thead>
+            <th>
+            <td>No.</td>
+            <td>Name</td>
+            <td>Tel</td>
+            </th>
+        </thead>
+        <tbody id="tablebody">
+
+        </tbody>
+    </table>
+    <input type="button" name="export" value="export" onclick="exportCSV()">
+
+    <script>
+        const current = document.getElementById("userName")
+        const input = document.getElementById("enterName")
+        let mydata = []
+
+        function setUser() {
+            current.textContent = input.value
+        }
+
+        const img = document.getElementById("img-pic")
+        const inurl = document.getElementById("url")
+
+        function setImg() {
+            img.style.backgroundImage = 'url(' + inurl.value + ')'
+        }
+
+        const apple = document.getElementById("myname")
+        const cupcake = document.getElementById("mytel")
+
+        function handlesub(e) {
+            e.preventDefault()
+            mydata.push({ "number": mydata.length + 1, "myname": apple.value, "mytel": cupcake.value })
+            console.log(mydata)
+            render()
+            apple.value = ""
+            cupcake.value = ""
+        }
+
+        const table = document.getElementById("tablebody")
+        function render() {
+            table.innerHTML = ""
+            mydata.forEach(element => {
+                table.innerHTML += `<tr><td>${element.number}</td><td>${element.myname}</td><td>${element.mytel}</td></tr>`
+            });
+        }
+
+        function convertToCSV(arr) {
+            let array = [Object.keys(arr[0])].concat(arr)
+            return array.map(it => {
+                const temp = Object.values(it).map((text) => `"${text}"`)
+                return temp.toString()
+            }).join('\n')
+        }
+
+        function exportCSV() {
+            let data = "data:text/csv;chatset=utf-8," + convertToCSV(mydata)
+            let encodeData = encodeURI(data)
+            window.open(encodeData)
+        }
+    </script>
 </body>
-</html
+
+</html>
